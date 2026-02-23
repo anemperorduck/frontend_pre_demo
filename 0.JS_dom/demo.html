@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript DOM 选择器示例</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        div, p, li, button { border: 1px solid #ccc; padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>DOM 元素选择器演示</h1>
+
+    <!-- 示例元素 -->
+    <div id="box">这是一个带有 ID 的盒子。</div>
+
+    <p>这是一个段落。</p>
+    <p>这是另一个段落。</p>
+
+    <ul>
+        <li class="item">列表项 1 (class="item")</li>
+        <li class="item">列表项 2 (class="item")</li>
+        <li>列表项 3 (没有 class)</li>
+    </ul>
+
+    <button id="btn">一个按钮</button>
+
+    <!-- JavaScript 代码 -->
+    <script>
+        console.log("--- 脚本开始运行，请按 F12 打开浏览器控制台查看输出 ---");
+
+        // 1. 按ID获取 (getElementById)
+        // 这是最快、最直接的方法，因为一个页面中元素的 ID 应该是唯一的。
+        // 它返回单个元素对象。
+        const box = document.getElementById('box');
+        console.log("1. getElementById('box'):", box);
+        // 我们可以直接操作这个元素，比如改变它的背景颜色
+        box.style.backgroundColor = '#e0f7fa';
+        box.textContent = '我被 getElementById 找到了！';
+
+
+        // 2. 按类名获取 (getElementsByClassName)
+        // 它会查找所有 class 包含 'item' 的元素，返回一个实时更新的 HTMLCollection 集合（像一个数组）。
+        const items = document.getElementsByClassName('item');
+        console.log("2. getElementsByClassName('item'):", items);
+        // 因为 items 是一个集合，我们需要通过索引来访问具体的元素，比如第一个是 items[0]
+        if (items.length > 0) {
+            items[0].style.color = 'red'; // 把第一个 class="item" 的元素文字变红
+        }
+
+
+        // 3. 按标签名获取 (getElementsByTagName)
+        // 它会查找所有指定标签名的元素（比如所有的 <p>），同样返回一个 HTMLCollection 集合。
+        const ps = document.getElementsByTagName('p');
+        console.log("3. getElementsByTagName('p'):", ps);
+        // 我们可以遍历这个集合，对所有 <p> 元素进行操作
+        for (let i = 0; i < ps.length; i++) {
+            ps[i].style.borderLeft = '3px solid orange';
+        }
+
+
+        // 4. 按CSS选择器获取 (querySelector 和 querySelectorAll)
+        // 这是最现代、最强大、最推荐的方法，因为它可以使用任何 CSS 选择器语法。
+
+        // a) querySelector: 只返回匹配到的第一个元素
+        // 使用 #btn 选择 id="btn" 的元素
+        const btn = document.querySelector('#btn');
+        console.log("4a. querySelector('#btn'):", btn);
+        btn.textContent = '我被 querySelector 找到了！';
+
+        // b) querySelectorAll: 返回所有匹配到的元素，得到一个静态的 NodeList 集合。
+        // 使用 ul li 选择 <ul> 标签下的所有 <li> 标签
+        const lis = document.querySelectorAll('ul li');
+        console.log("4b. querySelectorAll('ul li'):", lis);
+        // NodeList 可以很方便地使用 forEach 方法进行遍历
+        lis.forEach((li, index) => {
+            li.innerHTML += ` <strong>(我是第 ${index + 1} 个 li)</strong>`;
+        });
+
+        console.log("--- 脚本运行结束 ---");
+    </script>
+
+</body>
+</html>
