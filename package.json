@@ -1,0 +1,10 @@
+{
+  "name": "learning-vue-demo",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix mini-login-project run dev",
+    "build": "npm --prefix mini-login-project run build",
+    "preview": "npm --prefix mini-login-project run preview",
+    "lint": "npm --prefix mini-login-project run lint"
+  }
+}
